@@ -143,6 +143,19 @@ public class LinkedList {
         return helper(head, key);
     }
     
+     public void reverse() {
+        Node prev = null; //head ke pehle null hota hai
+        Node curr = tail = head;
+        Node next;
+
+        while(curr!=null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+     } //TC-> O(N), SC-> O(1)
     public static void main(String args[]) {
         LinkedList ll = new LinkedList();
         ll.addFirst(2);
@@ -167,6 +180,9 @@ public class LinkedList {
 
         //System.out.println(ll.linearSearch(3));
 
-        System.out.println(ll.recursiveSearch(5));
+        // System.out.println(ll.recursiveSearch(5));
+
+        ll.reverse();
+        ll.printLL();
     } 
 }
