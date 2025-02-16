@@ -186,18 +186,63 @@ public class LinkedList {
         return;
     } //TC-> O(L) {L is the no of nodes}, SC-> O(1) 
 
+    //Slow-Fast Concept
+    public Node findMid(Node head) { //helper
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next; //+1
+            fast = fast.next.next; //+2
+        }
+        return slow; //slow is my midNode
+    }
+
+    public boolean isPalindrome() {
+        if(head == null || head.next == null) { //empty LL or single element
+            return true;
+        }
+        //step1 - find mid
+        Node midNode = findMid(head);
+
+        //step2 - reverse 2nd half
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        Node right = prev; //right half ka head
+        Node left = head;
+
+        //step3 - check left half & right half
+        while(right != null) {
+            if(left.data != right.data) {
+                return false;
+            }
+            //updation
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    } //TC-> O(N), SC->O(1)
+
     public static void main(String args[]) {
         LinkedList ll = new LinkedList();
-        ll.addFirst(2);
-        ll.addFirst(1);
+        // ll.addFirst(2);
+        // ll.addFirst(1);
         // TC -> O(1) - while adding elements 
-        ll.addLast(4);
-        ll.addLast(5);
+        // ll.addLast(4);
+        // ll.addLast(5);
         // TC -> O(1) - while adding Last Elements
 
-        ll.addMiddle(2, 3);
+        // ll.addMiddle(2, 3);
 
-        ll.printLL();
+        // ll.printLL();
         //System.out.println(ll.size);
 
         // ll.removeFirst();
@@ -215,7 +260,16 @@ public class LinkedList {
         // ll.reverse();
         // ll.printLL();
 
-        ll.deleteNthfromEnd(3);
+        // ll.deleteNthfromEnd(3);
+        // ll.printLL();
+
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(1);
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(1);
         ll.printLL();
+        System.out.println(ll.isPalindrome());
     } 
 }
