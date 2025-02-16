@@ -156,6 +156,36 @@ public class LinkedList {
         }
         head = prev;
      } //TC-> O(N), SC-> O(1)
+
+    public void deleteNthfromEnd(int n) {
+        if(head == null) {
+            return;
+        }
+        // Calculate size
+        int size = 0;
+        Node temp = head;
+        while(temp!=null) {
+            temp = temp.next;
+            size++;
+        }
+
+        if(n == size) { //Corner Case
+            head = head.next; //removeFirst
+            return;
+        }
+
+        //to reach (size-n)th idx {prev}
+        int i = 1;
+        int idxToFind = size-n; //finding prev node 
+        Node prev = head;
+        while(i < idxToFind) {
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next; //prev ke next ka next
+        return;
+    } //TC-> O(L) {L is the no of nodes}, SC-> O(1) 
+
     public static void main(String args[]) {
         LinkedList ll = new LinkedList();
         ll.addFirst(2);
@@ -182,7 +212,10 @@ public class LinkedList {
 
         // System.out.println(ll.recursiveSearch(5));
 
-        ll.reverse();
+        // ll.reverse();
+        // ll.printLL();
+
+        ll.deleteNthfromEnd(3);
         ll.printLL();
     } 
 }
