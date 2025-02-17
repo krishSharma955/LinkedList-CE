@@ -143,11 +143,10 @@ public class LinkedList {
         return helper(head, key);
     }
     
-     public void reverse() {
-        Node prev = null; //head ke pehle null hota hai
-        Node curr = tail = head;
+    public void reverse() {
+        Node prev = null;
+        Node curr = head;
         Node next;
-
         while(curr!=null) {
             next = curr.next;
             curr.next = prev;
@@ -155,7 +154,7 @@ public class LinkedList {
             curr = next;
         }
         head = prev;
-     } //TC-> O(N), SC-> O(1)
+    } //TC-> O(N), SC-> O(1)
 
     public void deleteNthfromEnd(int n) {
         if(head == null) {
